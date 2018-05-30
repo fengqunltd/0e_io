@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>零e短网址</title>
+    <meta name="description" content="零e短网址为您提供专业、稳定、安全、快速、便捷的短网址服务。轻松帮助您把冗长网址缩短为10个字符以内的短网址，方便您分享和使用。" />
+    <meta name="keywords" content="短网址,短网址生成,网址缩短,短链接,短域名,短网址服务,短地址,缩短网址" />
+    <style>
+        *{ padding: 0; margin: 0;transition:all 0.3s;}
+        html,body{ background-color: #3f4e21; min-height: 100%; font-size: 10px;}
+        .header{ min-width: 400px; position: relative; height: 90px;}
+        .header-menu{ font-size: 0; position: absolute; right: 20px; top: 12px;}
+        .header-menu>li{ display: inline-block; font-size: 1.4rem; padding: 5px 15px;}
+        .header-menu>li>a{ color: #feb942; text-decoration: none;}
+        .header-menu>li>a:hover{ text-decoration: underline;}
+        .content{ margin-top: 80px; min-width: 400px;}
+        .title{ margin-bottom: 40px; text-align: center; font-size: 5.4rem; letter-spacing: 2px; font-style: italic; color: #feb942; font-weight: 400;}
+        .form{ margin: 5px 10px;}
+        .input-box{ background: #3c4a1a; width: 44%; max-width: 800px;min-width: 200px; position: relative; margin: 0 auto; height: 34px; padding: 10px 120px 10px 10px; border: 2px solid #feb942; font-size: 0;}
+        .input{ width: 100%; border: 0; outline: none; font-size: 1.8rem; color: #feb942; height: 100%; font-weight: 500; background: none;-webkit-appearance: none;}
+        .btn{ user-select: none; cursor:pointer; font-size: 2rem; line-height: 54px; color: #3f4b2d; text-align: center; background-color: #feb942; display: inline-block; position: absolute; right: 0; top: 0; width: 120px; height: 100%; z-index: 1;}
+        .btn:hover{ background-color: #e6a73c;}
+        .btn:active{ background-color: #feb942;}
+        footer{ min-width: 400px; background-color: #3f4e21; position: fixed; bottom: 0; left: 0; width: 100%;}
+        .copyright{ text-align: center; color: #feb942; opacity: .7; padding-bottom: 20px;}
+        .sub-menu{ padding: 5px; text-align: center;}
+        .sub-menu-ol{ font-size: 0;}
+        .sub-menu-ol>li{ display: inline-block; margin: 0 10px;}
+        .sub-menu-ol>li>a{ font-size: 1.4rem; text-decoration: none; color: #feb942; opacity: .7;}
+        .sub-menu-ol>li>a:hover,
+        .sub-menu-ol>li>a:active{ text-decoration: underline; opacity: 1;}
+        .show{ min-height: 150px; display: none; font-size: 0; position: relative; padding-left: 30%; padding-top: 80px; overflow: hidden; width:50%; margin: 0 auto;}
+        .show-title{ position: absolute; left: 0; top: 0; width: 100%; text-align: center; font-weight: normal; font-size: 1.8rem; color: #feb942; padding:22px 0;}
+        .show-left{text-align: right; height: 100%; position: absolute; left: 0; top: 0; width: 40%;}
+        .show-left>canvas{opacity: 0;}
+        .show-left>img{opacity: 0; border: 10px solid #fff; width: 0; height: 0; position: absolute; top: 50%; right: 100px; margin-top: 0; z-index: 2;}
+        .show-left.active>img{ right: 40px; margin-top: -20px;  opacity: 1; width: 100px; height: 100px;}
+        .show-right{  display: table-row; text-align: left; width:100%}
+        .show-text{ vertical-align: middle; margin-right: 10px;}
+        .show-text>em{font-style: normal;}
+        .show-copy{ display: inline-block; user-select: none; cursor: pointer; padding: 10px 20px; vertical-align: middle; font-size: 1.4rem; background-color: #feb942; color: #3f4b2d;}
+        .show-copy:hover{ background-color: #e6a83c;}
+        .show-copy:active{ background-color: #feb942;}
+        .show-right>p{word-wrap:break-word; line-height: 2em; width: 380px; margin-left: 20px; font-size: 1.4rem; color: #feb942; opacity: .7;}
+        .content.result{ margin-top: 0;}
+        .content.result .title{ opacity: .85; margin-bottom: 10px; font-size: 4.5rem;}
+        .content.result .form{ opacity: .85; margin: 5px 50px;}
+        .content.result .input-box{ width:34%; height: 24px;}
+        .content.result .btn{ line-height: 44px;}
+        .content.result .show{ display: table;}
+        .alert{position: fixed; padding: 10px 20px; font-size: 14px; color: #fff; background: rgba(0,0,0,.7); margin-left: -48px; margin-top: 20px; top: 50%; left: 50%;}
+        .spinner { position: absolute; top: 50%; right: 40px; margin-top: -20px; z-index: 1;  width: 120px; height: 120px; text-align: center; }
+        .spinner > div { margin-top: 45px; width: 30px; height: 30px; background-color: #67CF22; border-radius: 100%; display: inline-block; -webkit-animation: bouncedelay 1.4s infinite ease-in-out; animation: bouncedelay 1.4s infinite ease-in-out; -webkit-animation-fill-mode: both; animation-fill-mode: both; }
+        .spinner .bounce1 { -webkit-animation-delay: -0.32s; animation-delay: -0.32s; }
+        .spinner .bounce2 { -webkit-animation-delay: -0.16s; animation-delay: -0.16s; }
+        @-webkit-keyframes bouncedelay {
+            0%, 80%, 100% { -webkit-transform: scale(0.0) }
+            40% { -webkit-transform: scale(1.0) }
+        }
+        @keyframes bouncedelay {
+            0%, 80%, 100% { transform: scale(0.0); -webkit-transform: scale(0.0); }
+            40% { transform: scale(1.0); -webkit-transform: scale(1.0); }
+        }
+        .show-text .spinner{ height: 12px; position: initial;display: inline-block; vertical-align: middle;margin-top: 0; overflow: hidden; font-size: 0; width: 80px;}
+        .show-text .spinner > div{ margin-top: 0; width: 12px;height: 12px;}
+    </style>
+</head>
+<body>
+<div class="header">
+    <ol class="header-menu">
+        <li><a href="https://newbee.io" target="_blank">纽必</a></li>
+        <li><a href="https://iAuthenticator.org" target="_blank">iAuthenticator</a></li>
+    </ol>
+</div>
+<div class="content" id="content">
+    <h1 class="title">零e短网址</h1>
+    <div class="form">
+        <div class="input-box">
+            <input id="sourceInput" class="input" type="text" placeholder="">
+            <span id="Btn" class="btn">缩短一下</span>
+        </div>
+    </div>
+    <div class="show">
+        <h5 class="show-title">
+            <span class="show-text">生成的短网址：
+                <em id="copy_text">
+                    <div class="spinner">
+                        <div class="bounce1"></div>
+                        <div class="bounce2"></div>
+                        <div class="bounce3"></div>
+                    </div>
+                </em>
+            </span>
+            <span class="show-copy" id="copy_text_btn" data-clipboard-action="copy" data-clipboard-target="#copy_text" >复制</span>
+        </h5>
+        <div class="show-left" id="qrcode">
+            <div class="spinner">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+            </div>
+        </div>
+        <div class="show-right">
+            <p id="source_url"></p>
+        </div>
+    </div>
+</div>
+<footer>
+    <div class="sub-menu">
+        <ol class="sub-menu-ol">
+            <li><a href="https://www.feng-qun.com" target="_blank">AboutUs</a></li>
+            <li><a href="https://apidoc.0e.io/" target="_blank">OpenApi</a></li>
+            <li><a href="https://github.com/fengqunltd/0e_io" target="_blank">Github</a></li>
+        </ol>
+    </div>
+    <div class="copyright">Copyright © 2018 0e.io All rights reserved.</div>
+</footer>
+<script src="clipboard.min.js"></script>
+<script>
+    <!--
+    (function(){
+        var index = function(){
+            this.btn = document.getElementById("Btn");
+            this.content = document.getElementById("content");
+            this.copy_text = document.getElementById("copy_text");
+            this.copy_text_btn = document.getElementById("copy_text_btn");
+            this.source_input = document.getElementById("sourceInput");
+            this.source_url = document.getElementById("source_url");
+            this.qrcode = document.getElementById("qrcode");
+        };
+
+        index.prototype = {
+            load : function(){
+                var that = this;
+
+                if(that.btn) that.btn.onclick = function(){
+
+                    if(!that.source_input.value){
+                        that.alert("不能为空");
+                        return;
+                    }
+
+                    that.request_data(that.source_input.value);
+                };
+
+                if(that.source_input) that.source_input.addEventListener("focus",function(){
+                    //that.alert(that.content.className);
+                    if(that.content.className == 'content result'){
+                        that.content.className = 'content';
+                        if (that.source_url) that.source_url.innerHTML = '';
+                        if (that.qrcode)     that.qrcode.innerHTML = '',that.qrcode.className = 'show-left';
+                        if (that.copy_text)  that.copy_text.innerHTML = '';
+                    }
+                },false);
+            },
+            request_data : function(val){
+                var that = this;
+
+                if(val.indexOf("https")!==0 || val.indexOf("http")!==0){
+                    that.alert("请输入一个带https或http的网址!");
+                    return;
+                }
+
+                if(val.indexOf("0e.io")>0){
+                    that.alert("地址不能包含 0e.io");
+                    return;
+                }
+
+                if(that.source_input) that.source_input.value = '';
+                try {
+                    var load_str = '<div class="spinner"><div class="bounce1"></div> <div class="bounce2"></div> <div class="bounce3"></div> </div>';
+                    if (that.source_url) that.source_url.innerHTML = "源网址：" + val;
+                    if (that.qrcode)     that.qrcode.innerHTML = load_str;
+                    if (that.copy_text)  that.copy_text.innerHTML = load_str;
+                }catch (e){}
+                that.content.className = 'content result';
+                //load data
+                that.ajax({
+                    url : "https://0e.io/index.php",
+                    type : "POST",
+                    data : {
+                        str : encodeURIComponent(val)
+                    },
+                    success : function(data){
+
+                        var _data = JSON.parse(data);
+
+                        if(_data["code"]=="-2"){
+                            that.alert(_data["msg"]);
+                            that.source_input.focus();
+                            return;
+                        }
+
+                        try {
+                            if (that.copy_text) that.copy_text.innerHTML = _data["data"]["str"];
+                        }catch (e){}
+
+                        try {
+                            var clipboard = new Clipboard(that.copy_text_btn);
+                            //复制成功触发的事件
+                            clipboard.on('success', function(e) {
+                                //自定义事件区域
+                                console.log(e);
+                                that.alert("复制成功");
+
+                                that.copy_text_btn.innerHTML = "复制成功";
+
+                                setTimeout(function(){
+                                    that.copy_text_btn.innerHTML = "复制";
+                                },1000);
+
+                            });
+                            //复制失败触发的事件
+                            clipboard.on('error', function(e) {
+                                //自定义事件区域
+                                console.log(e);
+                            });
+                        }catch (err){}
+
+                        //qrcode
+                        if (that.qrcode){
+                            if (that.qrcode)     that.qrcode.innerHTML = '';
+                            var qrcode =  new QRCode(that.qrcode, {
+                                width : 100,
+                                height : 100
+                            });
+                            qrcode.makeCode(_data["data"]["str"]);
+                            setTimeout(function(){
+                                if (that.qrcode)     that.qrcode.className = 'show-left active';
+                            },150);
+                        }
+                    }
+                });
+            },
+            alert : function(str){
+                if(!str) return;
+                var _alert = document.getElementById("alert");
+                if(_alert){
+                    _alert.parentNode.removeChild(_alert);
+                }
+                var alert = document.createElement("span");
+                alert.id = "alert";
+                alert.className = "alert";
+                alert.innerHTML = ''+str+'';
+                document.body.appendChild(alert);
+                setTimeout(function(){
+                    alert.style.display = "none";
+                },1000);
+            },
+            //格式化参数
+            formatParams: function (data) {
+                var arr = [];
+                for (var name in data) {
+                    arr.push(encodeURIComponent(name) + "=" + encodeURIComponent(data[name]));
+                }
+                arr.push(("v=" + Math.random()).replace(".", ""));
+                return arr.join("&");
+            },
+            ajax: function (options) {
+                options = options || {};
+                options.type = (options.type || "GET").toUpperCase();
+                options.dataType = options.dataType || "json";
+                options.withCredentials = options.withCredentials || true;
+                options.encrypt = options.encrypt || false;
+                var params = options.encrypt?this.parameter_handle(options.data,net.serverkey):options.data;
+                params = this.formatParams(params);
+
+                //创建 - 非IE6 - 第一步
+                if (window.XMLHttpRequest) {
+                    var xhr = new XMLHttpRequest();
+                } else { //IE6及其以下版本浏览器
+                    var xhr = new ActiveXObject('Microsoft.XMLHTTP');
+                }
+
+                //接收 - 第三步
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4) {
+                        var status = xhr.status;
+                        if (status >= 200 && status < 300) {
+                            options.success && options.success(xhr.responseText, xhr.responseXML);
+                        } else {
+                            options.fail && options.fail(status);
+                        }
+                    }
+                };
+
+                //时候开启跨域访问COOKIE验证 默认:开启
+                xhr.withCredentials = options.withCredentials;
+
+                //连接 和 发送 - 第二步
+                if (options.type == "GET") {
+                    xhr.open("GET", options.url + "?" + params, true);
+                    xhr.send(null);
+                } else if (options.type == "POST") {
+                    xhr.open("POST", options.url, true);
+                    //设置表单提交时的内容类型
+                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                    xhr.send(params);
+                }
+            }
+        };
+
+        new index().load();
+
+    })();
+    -->
+</script>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript" src="qrcode.min.js"></script>
+</body>
+</html>
