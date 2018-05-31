@@ -156,7 +156,7 @@
             request_data : function(val){
                 var that = this;
 
-                if(val.indexOf("https")!==0 || val.indexOf("http")!==0){
+                if(val.indexOf("https")!==0 && val.indexOf("http")!==0){
                     that.alert("请输入一个带https或http的网址!");
                     return;
                 }
